@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../widgets/like_comment_widget.dart';
+
 class Post extends StatefulWidget {
   const Post({Key? key}) : super(key: key);
 
@@ -14,8 +16,8 @@ class _PostState extends State<Post> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 300,
-        width: MediaQuery.of(context).size.width /2,
+        height: 200,
+        width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
@@ -24,8 +26,9 @@ class _PostState extends State<Post> {
         ),
 
         ),
-        padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+        padding: const EdgeInsets.all(10),
         child:  Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Image(
               image: AssetImage("assets/images/flutter_bird.png"),
@@ -35,18 +38,20 @@ class _PostState extends State<Post> {
             Column(
               children: [
                 Divider(
-                  color: Colors.grey[700],
-                  indent: 55.0,
-                  endIndent: 55.0,
+                  thickness: 1,
+                  color: Colors.grey.withOpacity(0.4),
+                  indent: 5.0,
+                  endIndent: 5.0,
                   height: 8.0, // Set height of divider
                 ),
-                 Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/like_icon.svg'
-                    )
-                  ],
-                )
+                 const SizedBox(height: 5),
+                 const Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   children: [
+                     LikeCommentWidget(icon: 'assets/icons/like_icon.svg', text: 'Like'),
+                     LikeCommentWidget(icon: 'assets/icons/comment_icon.svg', text: 'Comment')
+                   ],
+                 )
               ],
             )
           ],
