@@ -15,7 +15,7 @@ class LikeCommentRepositoryImpl extends LikeCommentRepository {
 
   @override
   Future<Either<Failure, Unit>> likePost(String serviceId) async {
-    if (await networkInfo.isConnected)  {
+    if (await networkInfo.isConnected) {
       try {
         final services = await remoteDataSource.likePost(serviceId);
         return Right(services);
@@ -28,5 +28,4 @@ class LikeCommentRepositoryImpl extends LikeCommentRepository {
       return Left(OfflineFailure());
     }
   }
-
 }

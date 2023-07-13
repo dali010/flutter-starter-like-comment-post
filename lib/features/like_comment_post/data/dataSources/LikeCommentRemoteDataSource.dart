@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
 import '../../../../core/utils/exceptions.dart';
 import '../../../../core/utils/strings.dart';
 
@@ -15,11 +14,12 @@ class LikeCommentRemoteDataSourceImpl extends LikeCommentRemoteDataSource {
   final http.Client client;
 
   LikeCommentRemoteDataSourceImpl({required this.client});
+
   @override
   Future<Unit> likePost(String serviceId) async {
-
     // API call to follow a user
-    final response = await http.put(Uri.parse("${Strings.baseUrl}/like/$serviceId"), headers: {
+    final response = await http
+        .put(Uri.parse("${Strings.baseUrl}/like/$serviceId"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer ${Strings.token}',
       'Content-Type': 'application/json'
