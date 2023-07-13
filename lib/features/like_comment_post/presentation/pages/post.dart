@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_bloc.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_event.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_state.dart';
+import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/pages/comments.dart';
 
 import '/injection_container.dart' as di;
 import '../../../../core/utils/strings.dart';
@@ -77,7 +78,13 @@ class _PostState extends State<Post> {
                                 LikeCommentWidget(
                                   icon: Assets.commentIcon,
                                   text: 'Comment',
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const CommentsPage(serviceId: Strings.serviceId)),
+                                    );
+                                  },
                                 )
                               ],
                             )

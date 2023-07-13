@@ -16,3 +16,21 @@ class LikePostEvent extends PostEvent {
 }
 
 class LocalLike extends PostEvent {}
+
+class GetAllCommentsEvent extends PostEvent {
+  const GetAllCommentsEvent({required this.serviceId});
+
+  final String serviceId;
+}
+
+// Event to add a comment to a service
+class AddCommentEvent extends PostEvent {
+  final String serviceId;
+  final String comment;
+
+  const AddCommentEvent({required this.serviceId, required this.comment});
+
+  @override
+  List<Object> get props => [serviceId, comment];
+}
+
