@@ -6,7 +6,6 @@ import 'package:flutter_starter_like_comment/core/widgets/snackbar.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_bloc.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_state.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/widgets/comment_input.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '/injection_container.dart' as di;
 import '../../../../core/utils/functions.dart';
@@ -68,7 +67,6 @@ class _CommentsPageState extends State<CommentsPage>
     final currentFocus = FocusScope.of(context);
     setState(() {
       _isKeyboardVisible = currentFocus.hasFocus;
-      print("keyboard visible $_isKeyboardVisible");
     });
   }
 
@@ -189,14 +187,14 @@ class _CommentsPageState extends State<CommentsPage>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-                  Text(
-                    '${comment.commentor.name} ${comment.commentor.lastname}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: const Color(0xFF1A202C),
-                      fontSize: 12.sp,
-                    ),
-                  ),
+              Text(
+                '${comment.commentor.name} ${comment.commentor.lastname}',
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: const Color(0xFF1A202C),
+                  fontSize: 12.sp,
+                ),
+              ),
               const SizedBox(height: 4.0),
               // Add some spacing between the name and comment
               SizedBox(
