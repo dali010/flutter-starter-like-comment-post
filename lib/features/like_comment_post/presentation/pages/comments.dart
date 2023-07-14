@@ -27,6 +27,8 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage>
     with WidgetsBindingObserver {
+  final _scrollController = ScrollController();
+
   final TextEditingController _textEditingController = TextEditingController();
   bool _isKeyboardVisible = false;
   TextDirection textDirection = TextDirection.rtl;
@@ -34,33 +36,43 @@ class _CommentsPageState extends State<CommentsPage>
 
   @override
   void initState() {
+    _scrollController.addListener(_onScroll);
     WidgetsBinding.instance.addObserver(KeyboardListenerCheck(
       onKeyboardOpened: () {
         setState(() {
-          print("yoooooo");
           keyboard = true;
         });
         // Perform any actions you need when the keyboard is opened
       },
       onKeyboardClosed: () {
         setState(() {
-          print("noooooo");
           keyboard = false;
         });
         // Perform any actions you need when the keyboard is closed
       },
       context: context,
     ));
-
-    super.initState();
     _textEditingController.addListener(_checkKeyboardVisibility);
+    super.initState();
   }
 
   @override
   void dispose() {
     _textEditingController.dispose();
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    if (currentScroll >= (maxScroll * 0.9)) {
+      // context.read<PostsBloc>().add(GetPostsEvent());
+    }
   }
 
   void _checkKeyboardVisibility() {
@@ -117,6 +129,7 @@ class _CommentsPageState extends State<CommentsPage>
                   children: [
                     Flexible(
                       child: ListView.builder(
+                        controller: _scrollController,
                         itemCount: state.comments.length,
                         padding: EdgeInsets.symmetric(vertical: 67.h),
                         itemBuilder: (BuildContext context, int index) {
