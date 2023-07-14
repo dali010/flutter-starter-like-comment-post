@@ -7,8 +7,8 @@ import '../utils/strings.dart';
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton(
       {Key? key,
-      this.paddingLeft = 26,
-      this.paddingTop = 10,
+      this.paddingLeft = 10,
+      this.paddingTop = 0,
       this.popMessage = const []})
       : super(key: key);
 

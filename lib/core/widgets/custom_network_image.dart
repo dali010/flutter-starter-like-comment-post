@@ -22,7 +22,6 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${Strings.uploadsUrl}/$imageUrl");
     return SizedBox(
         width: size.width,
         height: size.height,

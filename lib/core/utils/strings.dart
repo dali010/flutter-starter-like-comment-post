@@ -16,4 +16,5 @@ class Assets {
   static const String commentIcon = 'assets/icons/comment_icon.svg';
   static const String userAvatarIcon = 'assets/icons/user_avatar.svg';
   static const String arrowBackIcon = 'assets/icons/arrow_back_icon.svg';
+  static const String sendCommentIcon = 'assets/icons/send_button.svg';
 }
