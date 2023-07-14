@@ -1,41 +1,22 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_starter_like_comment/features/like_comment_post/data/models/user_id_model.dart';
 
 class CommentEntity extends Equatable {
+  final String id;
+  final dynamic userId;
+  final String serviceId;
+  final UserIdModel commentor;
+  final String comment;
 
-    final String id ;
-    final dynamic userId;
-    final String serviceId;
-    final String comment ;
+  const CommentEntity({
+    required this.id,
+    required this.userId,
+    required this.serviceId,
+    required this.commentor,
+    required this.comment,
+  });
 
-    const CommentEntity({
-      required this.id,
-      required this.userId,
-      required this.serviceId,
-      required this.comment,
-});
-
-
-    factory CommentEntity.fromJson(Map<dynamic, dynamic> json) {
-      return CommentEntity(
-        id: json['_id'],
-        userId: json['user_id'],
-        serviceId: json['service_id'],
-        comment: json['comment'],
-      );
-    }
-
-    Map<dynamic, dynamic> toJson() {
-      final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
-      data['_id'] = id;
-      data['user_id'] = userId;
-      data['service_id'] = serviceId;
-      data['comment'] = comment;
-      return data;
-    }
-
-
-    List<Object?> get props => [id,userId,serviceId,comment];
-
+  List<Object?> get props => [id, userId, commentor, serviceId, comment];
 }
 
 /*

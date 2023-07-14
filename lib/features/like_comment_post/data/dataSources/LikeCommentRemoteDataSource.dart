@@ -69,7 +69,7 @@ class LikeCommentRemoteDataSourceImpl extends LikeCommentRemoteDataSource {
     final body = {"comments": comment};
 
     final response = await client.put(
-        Uri.parse("${Strings.baseUrl}/api/v1/comments/$serviceId"),
+        Uri.parse("${Strings.baseUrl}/comments/$serviceId"),
         body: body,
         headers: {
           'Accept': 'application/json',

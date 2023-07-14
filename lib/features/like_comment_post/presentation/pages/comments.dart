@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_starter_like_comment/core/utils/strings.dart';
+import 'package:flutter_starter_like_comment/features/like_comment_post/data/models/user_id_model.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_bloc.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_state.dart';
 import 'package:flutter_svg/svg.dart';
@@ -295,7 +296,7 @@ class _CommentsPageState extends State<CommentsPage> {
                     ),
                   ),
                   Text(
-                    'mehdi',
+                    '${comment.commentor.name} ${comment.commentor.lastname}',
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: const Color(0xFF1A202C),
@@ -325,7 +326,7 @@ class _CommentsPageState extends State<CommentsPage> {
         ),
         // User Avatar....
         CustomNetworkImage(
-          imageUrl: comment.userId,
+          imageUrl: comment.commentor.profilePicUrl,
           size: Size(42.w, 42.w),
         ),
       ],

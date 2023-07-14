@@ -56,6 +56,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(state.copyWith(
             error: mapFailureToMessage(failure), loading: false));
       }, (comments) {
+        print("comments $comments");
         emit(state.copyWith(
             loading: false,
             error: "",

@@ -7,16 +7,14 @@ class CommentModel extends CommentEntity {
       {required super.id,
       required super.userId,
       required super.serviceId,
+      required super.commentor,
       required super.comment});
 
   factory CommentModel.fromJson(Map<dynamic, dynamic> json) {
     return CommentModel(
       id: json["_id"] ?? "",
-      userId: json["user_id"] is String
-          ? json["user_id"]
-          : json["user_id"] != null
-              ? UserIdModel.fromJson(json["user_id"])
-              : null,
+      userId: json["user_id"],
+      commentor: json["student_id"] != null ? UserIdModel.fromJson(json["student_id"]): UserIdModel.fromJson(json["teacher_id"]),
       serviceId: json["service_id"] ?? "",
       comment: json["comments"] ?? "",
     );
@@ -27,7 +25,10 @@ class CommentModel extends CommentEntity {
     data["_id"] = id;
     final UserIdModel usersModel = userId as UserIdModel;
     data["user_id"] = usersModel.toJson();
-
+    final UserIdModel studentModel = commentor as UserIdModel;
+    data["student_id"] = studentModel.toJson();
+    final UserIdModel teacherModel = commentor as UserIdModel;
+    data["teacher_id"] = teacherModel.toJson();
     data["service_id"] = serviceId;
     data["comment"] = comment;
 

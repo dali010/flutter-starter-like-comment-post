@@ -16,11 +16,13 @@ class CustomNetworkImage extends StatelessWidget {
       required this.imageUrl,
       required this.size,
       this.shape = BoxShape.circle,
-      this.errorImage = "assets/images/user_avatar.svg"})
+      this.errorImage = Assets.userAvatarIcon})
       : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    print("${Strings.uploadsUrl}/$imageUrl");
     return SizedBox(
         width: size.width,
         height: size.height,
