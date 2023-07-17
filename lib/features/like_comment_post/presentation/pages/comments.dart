@@ -28,6 +28,7 @@ class CommentsPage extends StatefulWidget {
 class _CommentsPageState extends State<CommentsPage>
     with WidgetsBindingObserver {
   final _scrollController = ScrollController();
+  BuildContext? blocContext;
 
   final TextEditingController _textEditingController = TextEditingController();
   bool _isKeyboardVisible = false;
@@ -71,8 +72,14 @@ class _CommentsPageState extends State<CommentsPage>
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     if (currentScroll >= (maxScroll * 0.9)) {
-      // context.read<PostsBloc>().add(GetPostsEvent());
+      loadNextComments(blocContext!);
     }
+  }
+
+  void loadNextComments(BuildContext context) {
+    // context.read<PostBloc>().add(const LoadNextCommentsEvent(serviceId: Strings.serviceId));
+    BlocProvider.of<PostBloc>(context)
+        .add(const LoadNextCommentsEvent(serviceId: Strings.serviceId));
   }
 
   void _checkKeyboardVisibility() {
@@ -118,6 +125,7 @@ class _CommentsPageState extends State<CommentsPage>
 
   Widget _buildBody(BuildContext context) {
     return BlocBuilder<PostBloc, PostState>(builder: (context, state) {
+      blocContext = context;
       if (state.loading) {
         return const LoadingWidget();
       }

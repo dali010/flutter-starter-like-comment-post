@@ -9,7 +9,7 @@ class GetAllCommentUseCase {
 
   GetAllCommentUseCase({required this.repository});
 
-  Future<Either<Failure, List<CommentModel>>> call(String serviceId) async {
-    return await repository.getAllComments(serviceId);
+  Future<Either<Failure, List<CommentModel>>> call(String serviceId, int page) async {
+    return await repository.getAllComments(serviceId, page);
   }
 }

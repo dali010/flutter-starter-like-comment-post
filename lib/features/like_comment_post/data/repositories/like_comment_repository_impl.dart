@@ -32,10 +32,10 @@ class LikeCommentRepositoryImpl extends LikeCommentRepository {
 
   @override
   Future<Either<Failure, List<CommentModel>>> getAllComments(
-      String serviceId) async {
+      String serviceId, int page) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteAllLikes = await remoteDataSource.getAllComments(serviceId);
+        final remoteAllLikes = await remoteDataSource.getAllComments(serviceId, page);
         return Right(remoteAllLikes);
       } on ServerException catch (e) {
         return Left(ServerFailure(message: e.message));

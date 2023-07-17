@@ -9,7 +9,7 @@ import '../models/comment_model.dart';
 
 abstract class LikeCommentRemoteDataSource {
   Future<Unit> likePost(String serviceId);
-  Future<List<CommentModel>> getAllComments(String serviceId);
+  Future<List<CommentModel>> getAllComments(String serviceId, int page);
   Future<CommentModel> addComment(String serviceId, String comment);
 }
 
@@ -23,7 +23,8 @@ class LikeCommentRemoteDataSourceImpl extends LikeCommentRemoteDataSource {
     final response = await http
         .put(Uri.parse("${Strings.baseUrl}/like/$serviceId"), headers: {
       'Accept': 'application/json',
-      'Authorization': 'Bearer ${Strings.token}',
+      'Authorization': 'Bearer '
+          '${Strings.token}',
       'Content-Type': 'application/json'
     });
 
@@ -36,16 +37,14 @@ class LikeCommentRemoteDataSourceImpl extends LikeCommentRemoteDataSource {
   }
 
   @override
-  Future<List<CommentModel>> getAllComments(String serviceId) async {
+  Future<List<CommentModel>> getAllComments(String serviceId, int page) async {
 
     final response = await http.get(
-        Uri.parse("${Strings.baseUrl}/comments/$serviceId"),
+        Uri.parse("${Strings.baseUrl}/comments/$serviceId?page=$page"),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer ${Strings.token}'
         });
-
-    print("GetAllComments: ${response.body} ");
 
     if (response.statusCode == 200) {
       final List decodedJson =

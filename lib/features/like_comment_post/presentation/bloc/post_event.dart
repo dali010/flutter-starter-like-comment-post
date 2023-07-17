@@ -32,5 +32,13 @@ class AddCommentEvent extends PostEvent {
 
   @override
   List<Object> get props => [serviceId, comment];
+
 }
+
+class LoadNextCommentsEvent extends PostEvent {
+  const LoadNextCommentsEvent({required this.serviceId});
+
+  final String serviceId;
+}
+
 

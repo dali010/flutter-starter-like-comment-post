@@ -50,16 +50,16 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       if (emit.isDone) ;
 
       final getAllCommentsOrFailure =
-      await getAllCommentUseCase(event.serviceId);
+      await getAllCommentUseCase(event.serviceId, 1);
 
       getAllCommentsOrFailure.fold((failure) {
         emit(state.copyWith(
             error: mapFailureToMessage(failure), loading: false));
       }, (comments) {
-        print("comments $comments");
         emit(state.copyWith(
             loading: false,
             error: "",
+            currentPage: 1,
             comments: comments));
       });
     }
@@ -79,7 +79,35 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             comments: secondList));
       });
     }
+
+    if (event is LoadNextCommentsEvent) {
+      emit(state.copyWith(
+          loadingNextPage: true, error: ""));
+      if (emit.isDone) return;
+
+      if (!state.hasReachedTheEnd) {
+        final servicesResult =
+        await getAllCommentUseCase(event.serviceId, state.currentPage + 1);
+
+        servicesResult.fold((failure) {
+          emit(state.copyWith(
+              loadingNextPage: false,
+              hasReachedTheEnd: true));
+        }, (comments) {
+          if (comments.isEmpty) {
+            emit(state.copyWith(
+                loadingNextPage: false, error: "", hasReachedTheEnd: true));
+          } else {
+            emit(state.copyWith(
+              loadingNextPage: false,
+              error: "",
+              currentPage: state.currentPage + 1,
+              comments : (state.comments + comments).toSet().toList(),
+            ));
+          }
+        });
+      }
+    }
+
   }
-
-
 }
