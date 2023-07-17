@@ -6,14 +6,12 @@ import 'package:flutter_starter_like_comment/core/widgets/snackbar.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_bloc.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/bloc/post_state.dart';
 import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/widgets/comment_input.dart';
+import 'package:flutter_starter_like_comment/features/like_comment_post/presentation/widgets/user_comment.dart';
 
 import '/injection_container.dart' as di;
-import '../../../../core/utils/functions.dart';
 import '../../../../core/utils/keyboardListener.dart';
 import '../../../../core/widgets/back_button.dart';
-import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../core/widgets/loading_widget.dart';
-import '../../data/models/comment_model.dart';
 import '../bloc/post_event.dart';
 
 class CommentsPage extends StatefulWidget {
@@ -129,7 +127,6 @@ class _CommentsPageState extends State<CommentsPage>
       if (state.loading) {
         return const LoadingWidget();
       }
-
       return Stack(
         children: [
           state.comments.isNotEmpty
@@ -141,8 +138,7 @@ class _CommentsPageState extends State<CommentsPage>
                         itemCount: state.comments.length,
                         padding: EdgeInsets.symmetric(vertical: 67.h),
                         itemBuilder: (BuildContext context, int index) {
-                          return commentWidget(
-                              context, state.comments[index], Strings.userId);
+                          return UserComment(comment: state.comments[index]);
                         },
                       ),
                     ),
@@ -188,59 +184,5 @@ class _CommentsPageState extends State<CommentsPage>
         ],
       );
     });
-  }
-
-  Widget commentWidget(
-      BuildContext context, CommentModel comment, String? currentUserId) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 295.w,
-          padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 6.h),
-          margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF3FBFC),
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '${comment.commentor.name} ${comment.commentor.lastname}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  color: const Color(0xFF1A202C),
-                  fontSize: 12.sp,
-                ),
-              ),
-              const SizedBox(height: 4.0),
-              // Add some spacing between the name and comment
-              SizedBox(
-                width: 244.w,
-                child: Text(
-                  comment.comment,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF131313),
-                    fontSize: 12.sp,
-                  ),
-                  textDirection: isArabic(comment.comment)
-                      ? TextDirection.rtl
-                      : TextDirection.ltr,
-                ),
-              ),
-            ],
-          ),
-        ),
-        // User Avatar....
-        CustomNetworkImage(
-          imageUrl: comment.commentor.profilePicUrl,
-          size: Size(42.w, 42.w),
-        ),
-      ],
-    );
   }
 }
